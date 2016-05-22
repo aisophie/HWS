@@ -174,11 +174,11 @@ public class NST implements Serializable{
 			String[] words = sen.split(" ");
 			sens.add(words);
 		}
-		HashMap newdist = getUnigram(sens);
+		HashMap<String,Integer> newdist = getUnigram(sens);
 		newdist.put("<B>",sentences.length);
 		for(Object k:newdist.keySet()){
 			String key = (String)k;
-			int value = (int)(newdist.get(key));
+			int value = (int)newdist.get(key);
 			if(this.dist.containsKey(key)){
 				this.dist.put(key,this.dist.get(key)+value);
 			}else{
