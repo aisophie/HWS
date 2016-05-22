@@ -120,7 +120,8 @@ public class Trainer{
 		//read file
 		File file = new File(input);
 		String text = FileUtils.readFileToString(file);
-		String[] sens = StringUtils.split(text,System.lineSeparator());
+		//String[] sens = StringUtils.split(text,System.lineSeparator());
+		String[] sens = StringUtils.split(text,"\n");
 		if(mode.equals("ASM")){
 			//init converter
 			converter = new Converter(mode,assumption,order);

@@ -98,7 +98,8 @@ public class Evaluater{
 		//read test data
 		File file = new File(input);
 		String text = FileUtils.readFileToString(file);
-		String[] sens = StringUtils.split(text,System.lineSeparator());
+		//String[] sens = StringUtils.split(text,System.lineSeparator());
+		String[] sens = StringUtils.split(text,"\n");
 		//read model
 		FileInputStream fis = new FileInputStream(modelFile);
 		ObjectInputStream ois = new ObjectInputStream(fis);
