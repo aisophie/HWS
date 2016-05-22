@@ -1,20 +1,15 @@
 build:
-	javac -cp "lib/*:" src/nlp/structures/GHS.java -d bin
-	javac -cp "bin:lib/*:" src/nlp/structures/HWS.java -d bin
-	javac -cp "bin:lib/*:" src/nlp/structures/NGRAM.java -d bin
-	javac -cp "bin:lib/*:" src/nlp/structures/FB.java -d bin
-	javac -cp "bin:lib/*:" src/nlp/structures/DB.java -d bin
-	javac -cp "bin:lib/*:" src/nlp/structures/TB.java -d bin
-	javac -cp "bin:lib/*:" src/nlp/structures/ABS.java -d bin
-	javac -cp "bin:lib/*" src/nlp/HWS/converter.java -d bin
-
-
-clean:
-	rm -rf bin/*
-
+	javac -cp "bin:lib/*:" src/smoothing/MKN.java -d bin
+	javac -cp "bin:lib/*:" src/structures/GHS.java -d bin
+	javac -cp "bin:lib/*:" src/structures/HWS.java -d bin
+	javac -cp "bin:lib/*:" src/structures/NGRAM.java -d bin
+	javac -cp "bin:lib/*:" src/structures/NST.java -d bin
+	javac -cp "bin:lib/*:" src/structures/FB.java -d bin
+	javac -cp "bin:lib/*:" src/structures/DB.java -d bin
+	javac -cp "bin:lib/*:" src/structures/TB.java -d bin
+	javac -cp "bin:lib/*:" src/structures/ABS.java -d bin
+	javac -cp "bin:lib/*:" src/Converter.java -d bin
+	javac -cp "bin:lib/*:" src/Trainer.java -d bin
+	javac -cp "bin:lib/*:" src/Evaluater.java -d bin
 run:
-	java -cp "bin:lib/*" nlp.HWS.converter -m MIB -i corpus/ted.test -o mib.test -n 3# -e abs.train.extra
-
-rebuild:
-	make clean
-	make build
+	java -cp "bin:lib/*" Trainer
