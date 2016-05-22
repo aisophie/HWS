@@ -105,7 +105,7 @@ public class Evaluater{
 		ObjectInputStream ois = new ObjectInputStream(fis);
 		HashMap model = (HashMap)ois.readObject();
 		mode = (String)model.get("mode");
-		order = (int)model.get("order");
+		order = (Integer)model.get("order");
 		assumption = (String)model.get("assumption");
 		MKN mkn = (MKN)model.get("mkn");
 		ois.close();
