@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<project name="HWS" default="run">
+	<property name="BIN_PATH" value="bin"/>
+	<property name="DOC_PATH" value="doc"/>
+	<property name="SRC_PATH" value="src"/>
+	<property name="LIB_PATH" value="lib"/>
+	<property name="JAR_FILE_TR" value="train.jar"/>
+	<property name="JAR_FILE_EV" value="eval.jar"/>
+
+	<target name="init">	
+		<mkdir dir="${BIN_PATH}"/>
+		<mkdir dir="${DOC_PATH}"/>
+	</target>
+	<target name="doc" depends="init">
+		<javadoc sourcepath="${SRC_PATH}" destdir="${DOC_PATH}">
+			<classpath>
+				<fileset dir="${LIB_PATH}">
+					<include name="*.jar"/>
+				</fileset>
+			</classpath>
+			<fileset dir="${SRC_PATH}">
+				<include name="*.java"/>
+			</fileset>
+		</javadoc>
+	</target>
+	<target name="compile" depends="init">
+		<javac destdir="${BIN_PATH}" srcdir="${SRC_PATH}" includeantruntime="true">
+			<classpath>
+				<fileset dir="${LIB_PATH}">
+					<include name="*.jar"/>
+				</fileset>
+			</classpath>
+		</javac>
+	</target>
+	<target name="deploy" depends="compile">
+		<jar basedir="${BIN_PATH}" destfile="${JAR_FILE_TR}">
+			<manifest>
+				<attribute name="Main-Class" value="Trainer"/>
+				<attribute name="Class-Path" value="."/>
+			</manifest>
+			<zipgroupfileset dir="${LIB_PATH}" includes="*.jar"/>
+		</jar>
+		<jar basedir="${BIN_PATH}" destfile="${JAR_FILE_EV}">
+			<manifest>
+				<attribute name="Main-Class" value="Evaluater"/>
+				<attribute name="Class-Path" value="."/>
+			</manifest>
+			<zipgroupfileset dir="${LIB_PATH}" includes="*.jar"/>
+		</jar>
+	</target>
+	<target name="run" depends="deploy">
+		<java jar="${JAR_FILE_TR}" fork="true">
+			<arg value="-aTB"/>
+			<arg value="-icorpus/train.txt"/>
+			<arg value="-otrain"/>
+		</java>
+		<java jar="${JAR_FILE_EV}" fork="true">
+			<arg value="-mtrain.model"/>
+			<arg value="-icorpus/test.txt"/>
+			<arg value="-otest"/>
+		</java>
+	</target>
+	<target name="clean">
+		<delete dir="${BIN_PATH}"/>
+		<delete dir="${DOC_PATH}"/>
+		<delete>
+			<fileset dir=".">
+				<include name="*.jar"/>
+				<include name="*.extra"/>
+				<include name="*.model"/>
+				<include name="*.pattern"/>
+				<include name="*.results"/>
+			</fileset>
+		</delete>
+	</target>
+</project>
