@@ -178,7 +178,7 @@ public class NST implements Serializable{
 		newdist.put("<B>",sentences.length);
 		for(Object k:newdist.keySet()){
 			String key = (String)k;
-			int value = (int)newdist.get(key);
+			int value = (int)(newdist.get(key));
 			if(this.dist.containsKey(key)){
 				this.dist.put(key,this.dist.get(key)+value);
 			}else{
